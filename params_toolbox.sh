@@ -35,35 +35,37 @@ column() {
 }
 
 get_param(){
-    if [ $# -gt 2 ]; then
-        echo "usage: get_param table [where_query]"
+    if [ $# -gt 3 ]; then
+        echo "usage: get_param table parameter [where_query]"
         exit
     fi
 
     table=$1
+    parameter=$2
 
-    if [ $# -eq 1 ]; then
+    if [ $# -eq 2 ]; then
         where_query=""
     else
-        where_query="WHERE $2"
+        where_query="WHERE $3"
     fi
 
-    query "SELECT rowid, * FROM ${table}_parameters ${where_query}"
+    query "SELECT ${parameter} FROM ${table}_parameters ${where_query}"
 }
 
 get_output(){
-    if [ $# -gt 2 ]; then
-        echo "usage: get_output table [where_query]"
+    if [ $# -gt 3 ]; then
+        echo "usage: get_output table column [where_query]"
         exit
     fi
 
     table=$1
+    column=$2
 
-    if [ $# -eq 1 ]; then
+    if [ $# -eq 2 ]; then
         where_query=""
     else
-        where_query="WHERE $2"
+        where_query="WHERE $3"
     fi
 
-    query "SELECT rowid, * FROM ${table}_output ${where_query}"
+    query "SELECT ${column} FROM ${table}_output ${where_query}"
 }

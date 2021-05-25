@@ -7,13 +7,17 @@ query(){
 }
 
 select_field(){
+    if [ $# -ne 2 ]; then
+        echo "usage: select_field data field_num"
+	exit 1
+    fi
     echo "$1" | cut -d '|' -f "$2"
 }
 
 select_column() {
     if [ $# -ne 1 ]; then
         echo "usage: select_column column_number"
-        exit
+        exit 1
     fi
 
     while read data; do
